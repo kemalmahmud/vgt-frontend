@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css?family=Press Start 2P');
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+
+/* Style untuk container utama */
+.login-container {
+    background: #f8f8f8;
+    height: 100%;
+    position: relative;
+    height: 98vh; /* Pastikan container penuh layar */
+    display: flex; 
+    justify-content: left;
+}
+
+/* Background image */
+.login-background {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    background: url('/assets/login-page-background.png') no-repeat center;
+    background-size: cover;
+}
+
+
+.login-form {
+    height: auto; /* Menyesuaikan dengan isi */
+    max-width: 40%;
+    background: transparent;
+    margin: 10px 0px;
+    padding: 50px;
+    text-align: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0);
+}
+
+/* Judul */
+.login-form h1 {
+    font-family: 'Press Start 2P';
+    font-size: 50px;
+    margin-bottom: 10px;
+}
+
+/* Deskripsi kecil di bawah judul */
+.login-form p {
+  font-family: Poppins;
+    font-size: 20px;
+    color: gray;
+    margin-bottom: 20px;
+}
+
+/* Style input */
+.login-form input {
+    width: 100%;
+    padding: 20px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 20px;
+}
+
+.form-group {
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+.form-group label {
+  font-size: 18px;
+  font-weight: bold;
+  font-family: Poppins;
+  color: #333;
+  display: block;
+  margin-bottom: 1px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Bagian untuk "Remember me" dan "Forgot password" */
+/* .options {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    margin-bottom: 20px;
+} */
+
+/* Style tombol */
+.btn-signin, .btn-register {
+    width: 100%;
+    padding: 20px;
+    margin: 5px 0;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.btn-signin {
+    background: #E53935;
+    color: white;
+    margin-top: 30px;
+}
+
+.btn-register {
+    background: #FF5252;
+    color: white;
+}
+
+.register-link {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.register-link a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.register-link a:hover {
+    text-decoration: underline;
+}
+  

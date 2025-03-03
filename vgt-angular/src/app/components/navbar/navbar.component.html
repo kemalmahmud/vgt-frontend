@@ -1,0 +1,19 @@
+<nav class="navbar">
+  <div class="navbar-left">
+    <img src="assets/logo-temp.png" alt="Logo" class="navbar-logo">
+    <a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+    <a routerLink="/browse" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Browse</a>
+    <a routerLink="/collection" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Collection</a>
+    <a routerLink="/diary" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Your Diary</a>
+  </div>
+
+  <div class="navbar-right" *ngIf="username">
+    <div class="user-info">
+      <div class="profile-pic">{{ getInitials(username) }}</div>
+      <div class="user-details">
+        <span class="username">{{ username }}</span>
+        <span class="logout" (click)="logout()">Logout</span>
+      </div>
+    </div>
+  </div>
+</nav>

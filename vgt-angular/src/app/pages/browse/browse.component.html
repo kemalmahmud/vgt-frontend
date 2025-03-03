@@ -1,0 +1,28 @@
+<div class="browse-container">
+    <div class="search-bar">
+        <input type="text" placeholder="Search ..." [(ngModel)]="keyword"/>
+        <button (click)="onSearch()">
+            <i class="fa fa-search"></i>
+        </button>
+    </div>
+  
+<div class="games-list">
+    <div class="game-card" *ngFor="let game of games">
+        <img [src]="'https:' + game.cover.url" [alt]="game.name" />
+        <div class="game-info">
+            <h3>
+                {{ game.name }} 
+                <span *ngIf="game.release_dates?.length > 0 && game.release_dates[0]?.y">({{ game.release_dates[0]?.y }})</span>
+            </h3>
+        <p>{{ game.summary }}</p>
+        <div class="buttons">
+            <button class="detail-btn">Detail ></button>
+            <button class="collection-btn">
+                Add to Collection <i class="fa fa-bars"></i>
+            </button>
+        </div>
+        </div>
+      </div>
+</div>
+      
+  

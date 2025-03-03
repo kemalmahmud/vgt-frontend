@@ -1,0 +1,30 @@
+<div class="login-container">
+    <div class="login-background"></div> 
+  
+    <div class="login-form">
+      <h1>MY VIDEO GAMES DIARY</h1>
+      <p>Record your progress and write your story</p>
+  
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input id="username" type="text" placeholder="Enter your username" [(ngModel)]="username">
+      </div>
+      
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input id="password" type="password" placeholder="Password" [(ngModel)]="password">
+      </div>
+<!--   
+      <div class="options">
+        <label><input type="checkbox"> Remember me</label>
+        <a href="#">Forgot password</a>
+      </div> -->
+  
+      <button class="btn-signin" (click)="onLogin()">Sign in</button>
+      <p class="register-link">
+        Dont have an account? 
+        <a href="/register">Register here.</a>
+      </p>
+    </div>
+  </div>
+  
