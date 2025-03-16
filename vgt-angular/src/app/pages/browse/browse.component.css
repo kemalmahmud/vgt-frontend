@@ -1,7 +1,11 @@
 .browse-container {
+    margin-top: 10px;
     background-color: #1c1c1c;
     padding: 20px;
     color: white;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
   }
   
   .search-bar {

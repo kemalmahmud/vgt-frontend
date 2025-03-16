@@ -1,2 +1,43 @@
-<h1>Welcome to Video Game Tracker</h1>
-<p>This is the home page.</p>
+<div class="info-box" [ngStyle]="{'background-image': 'url(' + backgroundImage + ')'}">
+    <div class="info-box-blur" [ngStyle]="{'background-image': 'url(' + backgroundImage + ')'}"></div>
+    <ng-container *ngIf="nowPlayingData?.data?.length > 0; else noGame">
+      
+        <swiper-container #swiperContainer navigation="true" pagination="true" (swiperslidechange)="onSlideChange($event)">
+        <swiper-slide *ngFor="let game of nowPlayingData.data">
+          <div class="game-content">
+            <div class="game-info">
+              <h1>{{ game.gameName }}</h1>
+  
+              <div class="input-container">
+                <div class="input-group">
+                  <label for="hoursPlayed">Hours Played</label>
+                  <input id="hoursPlayed" type="number" [(ngModel)]="hoursPlayed" class="time-input" placeholder="Hours">
+                </div>
+  
+                <div class="input-group">
+                  <label for="minutesPlayed">Minutes Played</label>
+                  <input id="minutesPlayed" type="number" [(ngModel)]="minutesPlayed" class="time-input" placeholder="Minutes">
+                </div>
+              </div>
+  
+              <textarea [(ngModel)]="notes" class="notes-box" placeholder="Write your experience!"></textarea>
+  
+              <button class="save-button">Save</button>
+            </div>
+  
+            <img class="game-cover" [src]="'https://' + game.gameCover" alt="Game Cover">
+          </div>
+        </swiper-slide>
+      </swiper-container>
+  
+    </ng-container>
+  
+    <ng-template #noGame>
+      <div class="no-game-container">
+        <h1>Kau sedang tidak memainkan game apa-apa :(</h1>
+        <p>Masukkan game ke collection "Now Playing" agar muncul di sini</p>
+        <a routerLink="/browse" class="browse-button">Browse Game >></a>
+      </div>
+    </ng-template>
+  </div>
+  
