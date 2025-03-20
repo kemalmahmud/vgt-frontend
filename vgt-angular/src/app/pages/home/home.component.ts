@@ -1,7 +1,7 @@
-import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { Component, OnInit, ViewChild, ElementRef, Inject, PLATFORM_ID, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, OnInit, Inject, PLATFORM_ID, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { register as registerSwiperElements } from 'swiper/element/bundle';
 
@@ -14,13 +14,13 @@ import { register as registerSwiperElements } from 'swiper/element/bundle';
 })
 
 export class HomeComponent implements OnInit {
-  @ViewChild('swiperContainer', { static: false }) swiperContainer!: ElementRef;
 
   nowPlayingData: any = null;
   hoursPlayed: number = 0;
   minutesPlayed: number = 0;
   notes: string = '';
   backgroundImage: string = '';
+  gameId: number = 0;
 
   constructor(private http: HttpClient,
     @Inject(PLATFORM_ID) private platformId: any) {
@@ -31,24 +31,26 @@ export class HomeComponent implements OnInit {
     this.getNowPlaying();
   }
 
-  ngAfterViewInit() {
-    if (isPlatformBrowser(this.platformId) && this.swiperContainer) {
-      const swiperEl = this.swiperContainer.nativeElement;
-      
-      console.log("Swiper container found:", swiperEl);
-      
-      swiperEl.addEventListener('slidechange', (event: any) => {
-        console.log("Slide change detected!");
-        this.onSlideChange(event);
-      });
-    }
-  }
-
   getNowPlaying(): void {
-    const apiUrl = 'http://localhost:8084/api/diary/now-playing';
-    const requestBody = { userId: 'ffdd26c6-7fef-4b69-9357-d8dbccaac212' };
+    // const apiUrl = 'http://localhost:8084/api/diary/now-playing';
+    const apiUrl = 'http://localhost:8080/api/diary/now-playing';
 
-    this.http.post(apiUrl, requestBody, { headers: { 'Content-Type': 'application/json' } })
+    // Ambil userId dan token dari sessionStorage
+    const userId = sessionStorage.getItem('userId');
+    const token = sessionStorage.getItem('authToken');
+
+    if (!userId || !token) {
+      console.error('User ID atau Token tidak ditemukan di sessionStorage.');
+      return;
+    }
+
+    const requestBody = { userId: '0f4b19c8-1abb-4ee0-9236-dbbfe1e5a51f' };
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+
+    this.http.post(apiUrl, requestBody, { headers })
       .subscribe(
         (response: any) => {
           // console.log('API Response:', response);
@@ -60,6 +62,7 @@ export class HomeComponent implements OnInit {
             this.minutesPlayed = game.minutesPlayed;
             this.notes = game.text;
             this.backgroundImage = "https://" + game.gameCover;
+            this.gameId = game.gameId;
           }
         },
         (error) => {
@@ -75,7 +78,7 @@ export class HomeComponent implements OnInit {
       }
 
       const swiperInstance = event.target.swiper;
-      const activeIndex = swiperInstance.snapIndex ?? 0; // Gunakan snapIndex untuk menghindari error loop
+      const activeIndex = swiperInstance.snapIndex ?? 0;
       console.log("Slide changed! Active index:", activeIndex);
 
       if (this.nowPlayingData?.data?.length > 0) {
@@ -84,6 +87,7 @@ export class HomeComponent implements OnInit {
               this.backgroundImage = `https://${newBg}`;
               console.log("Updated Background Image:", this.backgroundImage);
           }
+          this.gameId = this.nowPlayingData.data[activeIndex]?.gameId;
       }
   }
 }

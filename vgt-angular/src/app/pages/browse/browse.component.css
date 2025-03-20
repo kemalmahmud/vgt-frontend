@@ -124,5 +124,27 @@
     margin-left: 3px;
 }
 
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.pagination button {
+    background: #444;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    margin: 0 5px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.pagination button:disabled {
+    background: #777;
+    cursor: not-allowed;
+}
+
+
 
   

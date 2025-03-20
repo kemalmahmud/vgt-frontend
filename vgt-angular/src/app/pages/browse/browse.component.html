@@ -1,9 +1,23 @@
+<app-collection-modal 
+  [collections]="collections" 
+  [isVisible]="isModalVisible" 
+  [buttonPosition]="modalPosition"
+  (collectionSelected)="onCollectionSelected($event)"
+  (closeModal)="closeModal()"
+></app-collection-modal>
+
 <div class="browse-container">
     <div class="search-bar">
-        <input type="text" placeholder="Search ..." [(ngModel)]="keyword"/>
+        <input type="text" placeholder="Search ..." [(ngModel)]="keyword" (keydown.enter)="onSearch()"/>
         <button (click)="onSearch()">
             <i class="fa fa-search"></i>
         </button>
+    </div>
+
+    <div class="pagination">
+        <button (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1">Previous</button>
+        <span>Page {{ currentPage }} of {{ totalPages }}</span>
+        <button (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages">Next</button>
     </div>
   
     <div class="games-list">
@@ -19,13 +33,15 @@
                 <p>{{ game.summary }}</p>
                 <div class="buttons">
                     <button class="detail-btn">Detail ></button>
-                    <button class="collection-btn">
+                    <button class="collection-btn" (click)="openModal($event)">
                         Add to Collection <i class="fa fa-bars"></i>
-                    </button>
+                      </button>
                 </div>
             </div>
         </div>
     </div>
+    
+      
     
       
   

@@ -23,9 +23,9 @@ export class LoginComponent {
 
     this.http.post<{ data : { token: string, userId: string, username: string }}>(this.apiUrl, loginData).subscribe({
       next: (response) => {
-        localStorage.setItem('userId', response.data.userId);
-        localStorage.setItem('username', response.data.username);
-        localStorage.setItem('authToken', response.data.token);
+        sessionStorage.setItem('userId', response.data.userId);
+        sessionStorage.setItem('username', response.data.username);
+        sessionStorage.setItem('authToken', response.data.token);
         this.router.navigate(['/home']); // Redirect ke home jika sukses
       },
       error: () => {
