@@ -1,17 +1,20 @@
 <div *ngIf="isVisible" class="modal-overlay" (click)="close()">
-    <div class="modal-content" (click)="$event.stopPropagation()" [ngStyle]="modalStyle">
-      <h2>Add Game to this Collection</h2>
-      <ul>
-        <li *ngFor="let collection of collections">
-          <label>
-            <input type="checkbox" [value]="collection"
-              (change)="toggleSelection(collection)"
-              [checked]="selectedCollections.includes(collection)" />
-            {{ collection }}
-          </label>
-        </li>
-      </ul>
-      <button (click)="saveSelections()">Save</button>
-    </div>
+  <div class="modal-content" (click)="$event.stopPropagation()" [ngStyle]="modalStyle">
+    <h2>Add Game to this Collection</h2>
+    <ul>
+      <li *ngFor="let collection of collections">
+        <label>
+          <input 
+            type="checkbox" 
+            [value]="collection.id"
+            (change)="toggleSelection(collection.id)" 
+            [checked]="isSelected(collection.id)" 
+            [disabled]="selectedCollections.size > 0 && !isSelected(collection.id)" 
+          />
+          {{ collection.name }}
+        </label>
+      </li>
+    </ul>
+    <button (click)="saveSelections()">Add</button>
   </div>
-  
+</div>

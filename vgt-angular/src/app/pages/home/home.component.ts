@@ -32,8 +32,8 @@ export class HomeComponent implements OnInit {
   }
 
   getNowPlaying(): void {
-    // const apiUrl = 'http://localhost:8084/api/diary/now-playing';
-    const apiUrl = 'http://localhost:8080/api/diary/now-playing';
+    const apiUrl = 'http://localhost:8084/api/diary/now-playing';
+    // const apiUrl = 'http://localhost:8080/api/diary/now-playing';
 
     // Ambil userId dan token dari sessionStorage
     const userId = sessionStorage.getItem('userId');
@@ -44,7 +44,7 @@ export class HomeComponent implements OnInit {
       return;
     }
 
-    const requestBody = { userId: '0f4b19c8-1abb-4ee0-9236-dbbfe1e5a51f' };
+    const requestBody = { userId: userId};
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
@@ -53,7 +53,7 @@ export class HomeComponent implements OnInit {
     this.http.post(apiUrl, requestBody, { headers })
       .subscribe(
         (response: any) => {
-          // console.log('API Response:', response);
+          console.log('API Response:', response);
           this.nowPlayingData = response;
 
           if (response?.data?.length > 0) {

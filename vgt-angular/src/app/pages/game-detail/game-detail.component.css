@@ -1,0 +1,161 @@
+/* Container utama */
+.game-detail-container {
+    width: 100%;
+    min-height: 90vh;
+    background: #111;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 0;
+}
+
+/* Game Header */
+.game-header {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.game-header h1 {
+    font-size: 48px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.game-header p {
+    font-size: 18px;
+    color: gray;
+    margin-top: 5px;
+    font-style: italic;
+}
+
+/* Game Info */
+.game-info-container {
+    width: 100%;
+    max-width: 1300px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px; /* Beri jarak dengan game-content */
+}
+
+.game-info {
+    text-align: center;
+}
+
+.game-info h2 {
+    font-size: 36px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.game-info small {
+    font-size: 16px;
+    color: #ccc;
+}
+
+.star-icon {
+    color: gold;
+    font-size: 20px;
+}
+
+/* Genre & Platform */
+.game-genres, .game-platforms {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.game-genres button, .game-platforms button {
+    background: #ffcc00;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.game-genres button {
+    color: black;
+}
+
+.game-platforms button {
+    background: green;
+    color: white;
+}
+
+/* Wrapper utama */
+.game-content {
+    max-width: 1300px;
+    width: 100%;
+    background: #181818;
+    padding: 30px;
+    border-radius: 10px;
+    margin: 0 auto;
+}
+
+/* Layout utama */
+.game-main {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+/* Left Section (Deskripsi) */
+.game-left {
+    flex: 1;
+    max-width: 40%;
+}
+
+/* Center Section (Cover) */
+.game-center {
+    flex: 0 1 500px;
+    display: flex;
+    justify-content: center;
+}
+
+.game-cover img {
+    width: 100%;
+    border-radius: 10px;
+    height: auto;
+}
+
+/* Right Section (Screenshots) */
+.game-right {
+    flex: 1;
+    max-width: 30%;
+}
+
+.game-screenshots {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.game-screenshots img {
+    width: 140px;
+    border-radius: 5px;
+}
+
+/* Tombol Add to Collection */
+.add-to-collection {
+    background: #ff6600;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+.add-to-collection:hover {
+    background: #e65c00;
+}

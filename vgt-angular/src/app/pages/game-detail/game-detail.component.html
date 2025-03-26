@@ -1,0 +1,64 @@
+<app-collection-modal
+  [collections]="collectionModalService.collections"
+  [isVisible]="collectionModalService.isModalVisible"
+  [buttonPosition]="collectionModalService.modalPosition"
+  (collectionSelected)="collectionModalService.saveSelections($event)"
+  (closeModal)="collectionModalService.closeModal()">
+</app-collection-modal>
+
+<div class="game-detail-container" *ngIf="gameData">
+    <!-- Game Header -->
+    <div class="game-header">
+        <h1>{{ gameData.name }} ({{ gameData.release_dates?.[0]?.y || 'Unknown' }})</h1>
+        <p>{{ involvedCompanies }}</p>
+    </div>
+
+    <!-- Main Content -->
+    <div class="game-content">
+        <div class="game-main">
+            <!-- Left Section: Description & Button -->
+            <div class="game-left">
+                <div class="game-description">
+                    <p>{{ gameData.summary }}</p>
+                    <button class="add-to-collection" (click)="openCollectionModal($event)">
+                        Add to Collection <i class="fa fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Center Section: Cover Image -->
+            <div class="game-center">
+                <div class="game-cover" *ngIf="gameData.cover?.url">
+                    <img [src]="gameData.cover.url.replace('t_thumb', 't_cover_big')" alt="Game Cover">
+                </div>
+            </div>
+
+            <!-- Right Section: Screenshots -->
+            <div class="game-right">
+                <!-- Game Info (Rating, Genre, Platform) -->
+                <div class="game-info-container">
+                    <div class="game-info">
+                        <h2 *ngIf="gameData.rating">
+                            <i class="fas fa-star star-icon"></i>
+                            {{ gameData.rating.toFixed(1) }}
+                            <small>({{ gameData.rating_count || 0 }} ratings)</small>
+                        </h2>
+                        <div class="game-genres" *ngIf="gameData.genres.length">
+                            <button *ngFor="let genre of gameData.genres">{{ genre.name }}</button>
+                        </div>
+                        <div class="game-platforms" *ngIf="gameData.platforms.length">
+                            <button *ngFor="let platform of gameData.platforms">{{ platform.name }}</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="game-screenshots" *ngIf="gameData.screenshots.length">
+                    <img *ngFor="let screenshot of gameData.screenshots.slice(0, 3)" 
+                        [src]="screenshot.url.replace('t_thumb', 't_cover_med')" 
+                        alt="Game Screenshot">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>

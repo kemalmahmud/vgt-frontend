@@ -1,47 +1,75 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
+interface Collection {
+  id: string;
+  name: string;
+}
 
 @Component({
   selector: 'app-collection-modal',
   standalone: true,
   templateUrl: './collection-modal.component.html',
   styleUrl: './collection-modal.component.css',
-  imports: [CommonModule]
+  imports: [CommonModule],
 })
-export class CollectionModalComponent {
-  @Input() collections: string[] = []; // Daftar koleksi
-  @Input() isVisible: boolean = false; // Modal terlihat atau tidak
-  @Input() buttonPosition: { top: number; left: number } | null = null; // Posisi modal
-  @Output() collectionSelected = new EventEmitter<string[]>(); // Event saat koleksi dipilih
-  @Output() closeModal = new EventEmitter<void>(); // Event untuk menutup modal
+export class CollectionModalComponent implements OnChanges {
+  @Input() collections: Collection[] = [];
+  @Input() isVisible: boolean = false;
+  @Input() buttonPosition: { top: number; left: number } | null = null;
+  @Output() collectionSelected = new EventEmitter<Collection[]>();
+  @Output() closeModal = new EventEmitter<void>();
 
-  selectedCollections: string[] = [];
-  fixedPosition = { top: '0px', left: '0px' };
+  selectedCollections = new Set<string>();
 
-  toggleSelection(collection: string) {
-    if (this.selectedCollections.includes(collection)) {
-      this.selectedCollections = this.selectedCollections.filter(item => item !== collection);
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['isVisible']?.currentValue) {
+      this.resetSelections();
+    }
+  }
+
+  toggleSelection(collectionId: string) {
+    // if (this.selectedCollections.has(collectionId)) {
+    //   this.selectedCollections.delete(collectionId);
+    // } else {
+    //   this.selectedCollections.add(collectionId);
+    // }
+
+     // Hanya menyimpan satu ID dalam Set
+    if (this.selectedCollections.has(collectionId)) {
+        this.selectedCollections.delete(collectionId);
     } else {
-      this.selectedCollections.push(collection);
+      this.selectedCollections.clear(); // Unselect semua sebelum memilih yang baru
+      this.selectedCollections.add(collectionId);
     }
   }
 
   saveSelections() {
-    this.collectionSelected.emit(this.selectedCollections);
-    this.closeModal.emit();
+    const selected = this.collections.filter(c => this.selectedCollections.has(c.id));
+    if (selected.length > 0) {
+      this.collectionSelected.emit(selected);
+    }
   }
 
   close() {
     this.closeModal.emit();
   }
 
+  isSelected(collectionId: string): boolean {
+    return this.selectedCollections.has(collectionId);
+  }
+
+  resetSelections() {
+    this.selectedCollections.clear();
+  }
+
   get modalStyle() {
-    console.log("Modal Style Updated:", this.buttonPosition);
     return this.buttonPosition
-      ? { 
-          'position': 'absolute', 
-          'top.px': this.buttonPosition.top, 
-          'left.px': this.buttonPosition.left 
+      ? {
+          position: 'absolute',
+          top: `${this.buttonPosition.top}px`,
+          left: `${this.buttonPosition.left}px`,
+          transform: 'translate(-50%, 0)',
         }
       : {};
   }

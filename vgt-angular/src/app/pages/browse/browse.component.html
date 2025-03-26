@@ -1,10 +1,10 @@
-<app-collection-modal 
-  [collections]="collections" 
-  [isVisible]="isModalVisible" 
-  [buttonPosition]="modalPosition"
-  (collectionSelected)="onCollectionSelected($event)"
-  (closeModal)="closeModal()"
-></app-collection-modal>
+<app-collection-modal
+  [collections]="collectionModalService.collections"
+  [isVisible]="collectionModalService.isModalVisible"
+  [buttonPosition]="collectionModalService.modalPosition"
+  (collectionSelected)="collectionModalService.saveSelections($event)"
+  (closeModal)="collectionModalService.closeModal()">
+</app-collection-modal>
 
 <div class="browse-container">
     <div class="search-bar">
@@ -32,8 +32,8 @@
                 </h3>
                 <p>{{ game.summary }}</p>
                 <div class="buttons">
-                    <button class="detail-btn">Detail ></button>
-                    <button class="collection-btn" (click)="openModal($event)">
+                    <button class="detail-btn" [routerLink]="['/game', game.id]">Detail</button>
+                    <button class="collection-btn" (click)="openCollectionModal($event, game)">
                         Add to Collection <i class="fa fa-bars"></i>
                       </button>
                 </div>
